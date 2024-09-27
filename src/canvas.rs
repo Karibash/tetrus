@@ -6,10 +6,6 @@ pub struct Canvas {
 }
 
 impl Canvas {
-    pub fn clear() {
-        print!("\x1B[2J\x1B[H\x1B[?25l");
-    }
-
     pub fn draw(&mut self, codes: Vec<Vec<&'static str>>) {
         self.codes = codes;
     }
