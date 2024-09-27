@@ -1,28 +1,23 @@
 mod canvas;
 mod color;
 mod field;
+mod frame;
 
 use crate::canvas::Canvas;
 use crate::field::Field;
-use std::thread;
-use std::time::{Duration, Instant};
-
-const FRAME_DURATION: Duration = Duration::from_millis(1000 / 60);
+use crate::frame::FrameScheduler;
 
 fn main() {
     let field = Field::default();
     let mut canvas = Canvas::default();
 
     Canvas::clear();
-    loop {
-        let frame_start = Instant::now();
 
+    let frame_scheduler = FrameScheduler::of_fps(60);
+    let handle = frame_scheduler.start(move || {
         canvas.draw(field.into());
         canvas.render();
+    });
 
-        let frame_time = Instant::now().duration_since(frame_start);
-        if frame_time < FRAME_DURATION {
-            thread::sleep(FRAME_DURATION - frame_time);
-        }
-    }
+    handle.join().unwrap();
 }
