@@ -11,8 +11,8 @@ fn main() {
     let field = Field::default();
     let mut canvas = Canvas::default();
 
-    let frame_scheduler = FrameScheduler::of_fps(60);
-    let handle = frame_scheduler.start(move || {
+    let frame_scheduler = FrameScheduler::new(60);
+    let handle = frame_scheduler.start(move |fps| {
         canvas.draw(field.into());
         canvas.render();
     });
