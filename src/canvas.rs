@@ -2,11 +2,11 @@ use std::io::{stdout, Write};
 use std::ops::Add;
 
 pub struct Canvas {
-    codes: Vec<Vec<&'static str>>,
+    codes: Vec<Vec<String>>,
 }
 
 impl Canvas {
-    pub fn draw(&mut self, codes: Vec<Vec<&'static str>>) {
+    pub fn draw(&mut self, codes: Vec<Vec<String>>) {
         self.codes = codes;
     }
 

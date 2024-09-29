@@ -44,7 +44,7 @@ impl Default for Field {
     }
 }
 
-impl From<Field> for Vec<Vec<&'static str>> {
+impl From<Field> for Vec<Vec<String>> {
     fn from(value: Field) -> Self {
         value
             .blocks
