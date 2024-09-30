@@ -12,18 +12,20 @@ enum FieldCell {
 }
 
 impl FieldCell {
-    fn get_color(&self) -> Color {
-        match self {
-            Self::Empty => Color::Black,
-            Self::Wall => Color::Gray,
-            Self::Block(color) => *color,
-        }
-    }
-
     fn has_collision(&self) -> bool {
         match self {
             Self::Empty => false,
             Self::Wall | Self::Block(_) => true,
+        }
+    }
+}
+
+impl From<&FieldCell> for String {
+    fn from(color: &FieldCell) -> String {
+        match color {
+            FieldCell::Empty => format!("{}　", Color::Black),
+            FieldCell::Wall => format!("{}　", Color::Gray),
+            FieldCell::Block(color) => format!("{}　", color),
         }
     }
 }
@@ -49,7 +51,7 @@ impl From<Field> for Vec<Vec<String>> {
         value
             .blocks
             .iter()
-            .map(|row| row.iter().map(|cell| cell.get_color().into()).collect())
+            .map(|row| row.iter().map(|cell| cell.into()).collect())
             .collect()
     }
 }
