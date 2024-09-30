@@ -1,5 +1,6 @@
 use std::io::{stdout, Write};
 use std::ops::Add;
+use crate::color::Color;
 
 pub struct Canvas {
     codes: Vec<Vec<String>>,
@@ -16,8 +17,8 @@ impl Canvas {
             .iter()
             .map(|row| row.concat())
             .collect::<Vec<_>>()
-            .join("\x1B[0m\x1B[0K\n")
-            .add("\x1B[0m\x1B[0J\n");
+            .join(format!("{}\x1b[K\n", Color::Black).as_str())
+            .add(format!("{}\x1B[0J\n", Color::Black).as_str());
 
         print!("\x1B[H{}", text);
         stdout().flush().unwrap();
