@@ -1,8 +1,8 @@
 use crate::color::Color;
 
-const WIDTH: usize = 13;
+pub const FIELD_WIDTH: usize = 13;
 
-const HEIGHT: usize = 21;
+pub const FIELD_HEIGHT: usize = 21;
 
 #[derive(Clone, Copy)]
 enum FieldCell {
@@ -32,15 +32,15 @@ impl From<&FieldCell> for String {
 
 #[derive(Clone, Copy)]
 pub struct Field {
-    blocks: [[FieldCell; WIDTH]; HEIGHT],
+    blocks: [[FieldCell; FIELD_WIDTH]; FIELD_HEIGHT],
 }
 
 impl Default for Field {
     fn default() -> Self {
-        let row = [FieldCell::Empty; WIDTH - 2];
-        let mut blocks = [[FieldCell::Wall; WIDTH]; HEIGHT];
-        for block in &mut blocks[..HEIGHT - 1] {
-            block[1..WIDTH - 1].copy_from_slice(&row);
+        let row = [FieldCell::Empty; FIELD_WIDTH - 2];
+        let mut blocks = [[FieldCell::Wall; FIELD_WIDTH]; FIELD_HEIGHT];
+        for block in &mut blocks[..FIELD_HEIGHT - 1] {
+            block[1..FIELD_WIDTH - 1].copy_from_slice(&row);
         }
         Self { blocks }
     }
