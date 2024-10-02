@@ -15,17 +15,21 @@ impl FrameScheduler {
     where
         F: FnMut(f64) + Send + 'static,
     {
-        let frame_duration = Duration::from_millis(1000 / self.frame_rate as u64);
+        let frame_duration = Duration::from_nanos(1_000_000_000 / self.frame_rate as u64);
         let mut frame_metrics = FrameMetrics::new(self.frame_rate);
 
-        thread::spawn(move || loop {
-            let frame_start = Instant::now();
-            frame_metrics.push(frame_start);
+        thread::spawn(move || {
+            let mut frame_start = Instant::now();
 
-            callback(frame_metrics.current_frame_rate());
+            loop {
+                frame_metrics.push(frame_start);
 
-            if let Some(remaining) = frame_duration.checked_sub(frame_start.elapsed()) {
-                thread::sleep(remaining);
+                callback(frame_metrics.current_frame_rate());
+
+                frame_start += frame_duration;
+                if let Some(remaining) = frame_start.checked_duration_since(Instant::now()) {
+                    thread::sleep(remaining);
+                }
             }
         })
     }
