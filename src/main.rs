@@ -3,6 +3,7 @@ mod color;
 mod field;
 mod frame;
 mod point;
+mod block;
 
 use crate::canvas::Canvas;
 use crate::field::{Field};

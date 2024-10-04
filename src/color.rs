@@ -8,7 +8,7 @@ pub enum Color {
     Green,
     Cyan,
     Red,
-    Magenta,
+    Purple,
     Orange,
     Yellow,
 }
@@ -22,7 +22,7 @@ impl Display for Color {
             Color::Green => "\x1b[48;2;000;255;000m",
             Color::Cyan => "\x1b[48;2;000;255;255m",
             Color::Red => "\x1b[48;2;255;000;000m",
-            Color::Magenta => "\x1b[48;2;255;000;255m",
+            Color::Purple => "\x1b[48;2;255;000;255m",
             Color::Orange => "\x1b[48;2;255;127;000m",
             Color::Yellow => "\x1b[48;2;255;255;000m",
         };
