@@ -5,7 +5,7 @@ mod frame;
 mod point;
 
 use crate::canvas::Canvas;
-use crate::field::{Field, FIELD_WIDTH};
+use crate::field::{Field};
 use crate::frame::FrameScheduler;
 use crate::point::Point;
 
@@ -17,7 +17,7 @@ fn main() {
     let handle = frame_scheduler.start(move |fps| {
         canvas.draw(Point::new(0, 0), field.into());
         canvas.draw(
-            Point::new(FIELD_WIDTH + 1, 0),
+            Point::new(Field::WIDTH + 1, 0),
             vec![vec![format!("FPS: {}", fps.floor())]],
         );
         canvas.render();
